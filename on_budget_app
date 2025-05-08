@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verify Your Email - On Budget</title>
+  <script defer>
+    window.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get("mode");
+      const oobCode = params.get("oobCode");
+      const statusEl = document.getElementById("status");
+
+      if (mode === "verifyEmail" && oobCode) {
+        statusEl.innerText = "✅ Email verified! Redirecting to app...";
+        setTimeout(() => {
+          window.location.href = "onbudget://email-verified";
+        }, 2000);
+      } else {
+        statusEl.innerText = "❌ Invalid verification link.";
+      }
+    });
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary: #704F38;
+      --accent: #B68D60;
+      --background: #FDF8F3;
+      --text: #3A2C1D;
+    }
+    body {
+      background-color: var(--background);
+      color: var(--text);
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-center items-center min-h-screen text-center px-4">
+  <div class="max-w-md w-full bg-white p-6 rounded-2xl shadow-lg">
+    <img src="https://yourcdn.com/logo.png" alt="On Budget Logo" class="mx-auto mb-6 w-20 h-20"/>
+    <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">Email Verification</h1>
+    <p class="text-base text-[var(--text)] mb-4">Please wait while we confirm your email...</p>
+    <p id="status" class="text-sm text-[var(--accent)]">Checking...</p>
+    <div class="mt-6 text-sm text-gray-500">
+      On Budget © 2025
+    </div>
+  </div>
+</body>
+</html>
