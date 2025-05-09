@@ -3,11 +3,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const mode = params.get("mode");
   const oobCode = params.get("oobCode");
 
-  const verifyBlock = document.getElementById("verify-block");
-  const verifyStatus = document.getElementById("verify-status");
+  const verifyBlock = document.getElementById("verifyEmail");
 
-  const resetBlock = document.getElementById("reset-block");
-  const resetStatus = document.getElementById("reset-status");
+  const resetBlock = document.getElementById("resetPassword");
 
   const invalidBlock = document.getElementById("invalid-block");
 
@@ -18,7 +16,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
   if (mode != "verifyEmail") {
     verifyBlock.classList.remove("hidden");
-    verifyStatus.innerText = "✅ Email verified! You can now return to the app.";
     setTimeout(() => {
       window.location.href = "onbudget://email-verified";
     }, 2000);
@@ -37,7 +34,6 @@ function submitNewPassword() {
   const failed = validatePassword(newPassword);
 
   if (failed.length > 0) {
-    resetStatus.innerHTML = failed.map(f => `<div>${f.error}</div>`).join("");
     return; // 🚫 Don't make the request
   }
 
