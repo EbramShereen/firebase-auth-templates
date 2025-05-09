@@ -1,49 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Verify Your Email - On Budget</title>
-  <script defer>
-    window.addEventListener("DOMContentLoaded", () => {
-      const params = new URLSearchParams(window.location.search);
-      const mode = params.get("mode");
-      const oobCode = params.get("oobCode");
-      const statusEl = document.getElementById("status");
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify Your Email - On Budget</title>
+    <script defer>
+      window.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const mode = params.get("mode");
+        const oobCode = params.get("oobCode");
+        const statusEl = document.getElementById("status");
 
-      if (mode === "verifyEmail" && oobCode) {
-        statusEl.innerText = "✅ Email verified! Redirecting to app...";
-        setTimeout(() => {
-          window.location.href = "onbudget://email-verified";
-        }, 2000);
-      } else {
-        statusEl.innerText = "❌ Invalid verification link.";
+        if (mode === "verifyEmail" && oobCode) {
+          statusEl.innerText = "✅ Email verified! You can now return to the app.";
+          setTimeout(() => {
+            window.location.href = "onbudget://email-verified";
+          }, 2000);
+        } else {
+          statusEl.innerText = "🚫 Invalid or expired verification link \nPlease request a new one...";
+        }
+      });
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --primary: #704f38;
+        --accent: #b68d60;
+        --background: #fdf8f3;
+        --text: #3a2c1d;
       }
-    });
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root {
-      --primary: #704F38;
-      --accent: #B68D60;
-      --background: #FDF8F3;
-      --text: #3A2C1D;
+      body {
+        background-color: var(--background);
+        color: var(--text);
+      }
+
+      .container {
+        position: relative; /* Make the container a positioning context */
+        background-color: white;
+        padding: 1.5rem; /* Equivalent to p-6 */
+        border-radius: 1.25rem; /* Equivalent to rounded-2xl */
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1); /* Equivalent to shadow-lg */
+        overflow: visible; /* Ensure the image doesn't cause overflow */
+        height: 250px;
+    
     }
-    body {
-      background-color: var(--background);
-      color: var(--text);
+
+      .overlay-image {
+        position: absolute; /* Position the image absolutely */
+        top: -5rem; /* Adjust to position the image so half is outside */
+        left: 50%;
+        transform: translateX(-50%); /* Center the image horizontally */
+        width: 10rem; /* Equivalent to w-40 */
+        height: 10rem; /* Equivalent to h-40 */
+        object-fit: cover; /* Maintain aspect ratio and cover the area */
+        z-index: 1; /* Ensure the image is above the div */
+     
+        
     }
-  </style>
-</head>
-<body class="flex flex-col justify-center items-center min-h-screen text-center px-4">
-  <div class="max-w-md w-full bg-white p-6 rounded-2xl shadow-lg">
-    <img src="https://drive.usercontent.google.com/download?id=1g-1ed7agyP7WLWgN7Br-Auw-NPlxeQmI&export=view&authuser=0" alt="On Budget Logo" class="mx-auto mb-6 w-20 h-20"/>
-    <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">Email Verification</h1>
-    <p class="text-base text-[var(--text)] mb-4">Please wait while we confirm your email...</p>
-    <p id="status" class="text-sm text-[var(--accent)]">Checking...</p>
-    <div class="mt-6 text-sm text-gray-500">
-      On Budget © 2025
+
+      .content {
+        position: relative; /* Create a stacking context */
+        z-index: 2; /* Place the content above the image */
+        padding-top: 50px;
+    }
+    </style>
+  </head>
+  <body
+    class="flex flex-col justify-center items-center min-h-screen text-center px-4"
+  >
+    <div class="container">
+      <img
+        src="https://drive.google.com/thumbnail?id=1g-1ed7agyP7WLWgN7Br-Auw-NPlxeQmI&sz=w1000"
+        alt="Overlay Image"
+        class="overlay-image"
+      />
+      <div class="content">
+        <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">
+            Email verified!
+        </h1>
+        
+        <p id="status" class="text-sm text-[var(--accent)]">Checking...</p>
+        <div class="mt-6 text-sm text-gray-500">On Budget © 2025</div>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
+
+
+
+
