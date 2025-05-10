@@ -1,28 +1,21 @@
-window.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const mode = params.get("mode") || "";
-  const oobCode = decodeURIComponent(params.get("oobCode") || "");
+document.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const mode = urlParams.get('mode');
+  const oobCode = urlParams.get('oobCode');
 
-  console.log("Full URL:", window.location.href);
   console.log("mode from URL:", mode);
   console.log("oobCode from URL:", oobCode);
 
-  const verifyBlock = document.getElementById("verifyEmail");
-  const resetBlock = document.getElementById("resetPassword");
-  const invalidBlock = document.getElementById("invalid-block");
-
-  if (mode === "verifyEmail") {
-    verifyBlock?.classList.remove("hidden");
-    setTimeout(() => {
-      window.location.href = "onbudget://verifyEmail";
-    }, 2000);
-  } else if (mode === "resetPassword") {
-    resetBlock?.classList.remove("hidden");
-    window.oobCode = oobCode;
+  if (mode === 'verifyEmail') {
+    document.getElementById('verifyEmail').classList.remove('hidden');
+  } else if (mode === 'resetPassword') {
+    document.getElementById('resetPassword').classList.remove('hidden');
+    // optionally validate oobCode here before showing the reset form
   } else {
-    invalidBlock?.classList.remove("hidden");
+    document.getElementById('invalid-block').classList.remove('hidden');
   }
 });
+
 
 
 function submitNewPassword() {
