@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function verifyEmail(oobCode, apiKey) {
-  fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`, {
+  fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDhh2HBfL0-CLtSUoiVVeOhShFkeLPsgOQ`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
