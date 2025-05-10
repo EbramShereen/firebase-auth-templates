@@ -2,27 +2,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const mode = urlParams.get('mode');
   const oobCode = urlParams.get('oobCode');
-  const apiKey = 'AIzaSyDhh2HBfL0-CLtSUoiVVeOhShFkeLPsgOQ'; // Your Firebase API key
 
   console.log("mode from URL:", mode);
   console.log("oobCode from URL:", oobCode);
 
   if (mode === 'verifyEmail') {
-    // Show the verification UI
     document.getElementById('verifyEmail').classList.remove('hide');
-    
-    // Actually verify the email with Firebase
     verifyEmail(oobCode, apiKey);
   } else if (mode === 'resetPassword') {
     document.getElementById('resetPassword').classList.remove('hide');
-    // Store oobCode for password reset
-    window.oobCode = oobCode;
+    // optionally validate oobCode here before showing the reset form
   } else {
     document.getElementById('invalid-block').classList.remove('hide');
   }
 });
 
-// Add this new function for email verification
 function verifyEmail(oobCode, apiKey) {
   fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`, {
     method: 'POST',
@@ -55,8 +49,6 @@ function verifyEmail(oobCode, apiKey) {
     `;
   });
 }
-
-
 
 function submitNewPassword() {
   const newPassword = document.getElementById("new-password").value;
