@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const mode = "verifyEmail";
+  const mode = params.get("mode") || "";
   const oobCode = decodeURIComponent(params.get("oobCode") || "");
   console.log("oobCode from URL:", oobCode);
 
