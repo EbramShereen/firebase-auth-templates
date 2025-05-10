@@ -9,16 +9,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (mode === 'verifyEmail') {
     // Show the verification UI
-    document.getElementById('verifyEmail').classList.remove('hidden');
+    document.getElementById('verifyEmail').classList.remove('hide');
     
     // Actually verify the email with Firebase
     verifyEmail(oobCode, apiKey);
   } else if (mode === 'resetPassword') {
-    document.getElementById('resetPassword').classList.remove('hidden');
+    document.getElementById('resetPassword').classList.remove('hide');
     // Store oobCode for password reset
     window.oobCode = oobCode;
   } else {
-    document.getElementById('invalid-block').classList.remove('hidden');
+    document.getElementById('invalid-block').classList.remove('hide');
   }
 });
 
