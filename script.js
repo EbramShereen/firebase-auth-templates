@@ -2,28 +2,28 @@ window.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const mode = params.get("mode") || "";
   const oobCode = decodeURIComponent(params.get("oobCode") || "");
+
+  console.log("Full URL:", window.location.href);
+  console.log("mode from URL:", mode);
   console.log("oobCode from URL:", oobCode);
 
   const verifyBlock = document.getElementById("verifyEmail");
-
   const resetBlock = document.getElementById("resetPassword");
-
   const invalidBlock = document.getElementById("invalid-block");
-  console.log("mode: "+mode);
 
-  
-  if (mode == "verifyEmail") {
-    verifyBlock.classList.remove("hidden");
+  if (mode === "verifyEmail") {
+    verifyBlock?.classList.remove("hidden");
     setTimeout(() => {
       window.location.href = "onbudget://verifyEmail";
     }, 2000);
   } else if (mode === "resetPassword") {
-    resetBlock.classList.remove("hidden");
-    window.oobCode = oobCode; // Store for later use
+    resetBlock?.classList.remove("hidden");
+    window.oobCode = oobCode;
   } else {
-    invalidBlock.classList.remove("hidden");
+    invalidBlock?.classList.remove("hidden");
   }
 });
+
 
 function submitNewPassword() {
   const newPassword = document.getElementById("new-password").value;
