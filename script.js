@@ -7,12 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log("oobCode from URL:", oobCode);
 
   if (mode === 'verifyEmail') {
-    document.getElementById('verifyEmail').classList.remove('hidden');
+    document.getElementById('verifyEmail').classList.remove('hide');
   } else if (mode === 'resetPassword') {
-    document.getElementById('resetPassword').classList.remove('hidden');
+    document.getElementById('resetPassword').classList.remove('hide');
     // optionally validate oobCode here before showing the reset form
   } else {
-    document.getElementById('invalid-block').classList.remove('hidden');
+    document.getElementById('invalid-block').classList.remove('hide');
   }
 });
 
