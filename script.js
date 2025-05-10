@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
   if (mode == "verifyEmail") {
     verifyBlock.classList.remove("hidden");
     setTimeout(() => {
-      window.location.href = "onbudget://email-verified";
+      window.location.href = "onbudget://verifyEmail";
     }, 2000);
   } else if (mode === "resetPassword") {
     resetBlock.classList.remove("hidden");
