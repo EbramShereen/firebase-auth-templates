@@ -2,19 +2,59 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const mode = urlParams.get('mode');
   const oobCode = urlParams.get('oobCode');
+  const apiKey = 'AIzaSyDhh2HBfL0-CLtSUoiVVeOhShFkeLPsgOQ'; // Your Firebase API key
 
   console.log("mode from URL:", mode);
   console.log("oobCode from URL:", oobCode);
 
   if (mode === 'verifyEmail') {
-    document.getElementById('verifyEmail').classList.remove('hide');
+    // Show the verification UI
+    document.getElementById('verifyEmail').classList.remove('hidden');
+    
+    // Actually verify the email with Firebase
+    verifyEmail(oobCode, apiKey);
   } else if (mode === 'resetPassword') {
-    document.getElementById('resetPassword').classList.remove('hide');
-    // optionally validate oobCode here before showing the reset form
+    document.getElementById('resetPassword').classList.remove('hidden');
+    // Store oobCode for password reset
+    window.oobCode = oobCode;
   } else {
-    document.getElementById('invalid-block').classList.remove('hide');
+    document.getElementById('invalid-block').classList.remove('hidden');
   }
 });
+
+// Add this new function for email verification
+function verifyEmail(oobCode, apiKey) {
+  fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      oobCode: oobCode
+    }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    const verifyEmailDiv = document.getElementById('verifyEmail');
+    if (data.error) {
+      verifyEmailDiv.innerHTML = `
+        <h1 class="text-2xl font-semibold text-red-600 mb-4">Verification Failed</h1>
+        <p class="text-sm text-gray-500">${data.error.message.replace(/_/g, ' ')}</p>
+      `;
+    } else {
+      verifyEmailDiv.innerHTML = `
+        <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">Email Verified Successfully!</h1>
+        <p class="text-sm text-gray-500">You can now close this window and return to the app.</p>
+      `;
+    }
+  })
+  .catch(error => {
+    document.getElementById('verifyEmail').innerHTML = `
+      <h1 class="text-2xl font-semibold text-red-600 mb-4">Verification Error</h1>
+      <p class="text-sm text-gray-500">Please try again later.</p>
+    `;
+  });
+}
 
 
 
