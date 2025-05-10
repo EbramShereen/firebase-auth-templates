@@ -1,20 +1,18 @@
 window.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const mode = params.get("mode");
-  const oobCode = params.get("oobCode");
+  const mode = "verifyEmail";
+  const oobCode = decodeURIComponent(params.get("oobCode") || "");
+  console.log("oobCode from URL:", oobCode);
 
   const verifyBlock = document.getElementById("verifyEmail");
 
   const resetBlock = document.getElementById("resetPassword");
 
   const invalidBlock = document.getElementById("invalid-block");
+  console.log("mode: "+mode);
 
-  if (!mode || !oobCode) {
-    invalidBlock.classList.remove("hidden");
-    return;
-  }
-
-  if (mode === "verifyEmail") {
+  
+  if (mode == "verifyEmail") {
     verifyBlock.classList.remove("hidden");
     setTimeout(() => {
       window.location.href = "onbudget://email-verified";
