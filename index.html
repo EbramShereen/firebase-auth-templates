@@ -1,207 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <title>On Budget - Authentication</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      body {
-        background-color: var(--background);
-        color: var(--text);
-        --primary: #704f38;
-        --accent: #b68d60;
-        --background: #fdf8f3;
-        --text: #3a2c1d;
-      }
 
-      .container {
-        position: relative;
-        background-color: white;
-        padding: 1.5rem;
-        border-radius: 1.25rem;
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
-          0 2px 4px -2px rgb(0 0 0 / 0.1);
-        overflow: visible;
-        min-height: 250px;
-        width: 100%;
-        max-width: 420px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <title>On Budget - Authentication</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-      .overlay-image {
-        position: absolute;
-        top: -5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 10rem;
-        height: 10rem;
-        object-fit: cover;
-        z-index: 1;
-      }
+  <script defer src="js/script.js"></script>
+  <link rel="stylesheet" href="css/style.css" />
 
-      .content {
-        position: relative;
-        z-index: 2;
-        padding-top: 60px;
-      }
-      .input-wrapper {
-        position: relative;
-        width: 350px;
-        margin: 0rem auto;
-      }
+</head>
 
-      .form {
-        width: 100%;
-        border-radius: 7px;
-        padding: 0.75rem 2.5rem 0.75rem 1rem; /* enough space for icon on the right */
-        border: 2px solid #ccc;
-        font-size: 1rem;
-        background-color: #f9f3ec;
-        color: var(--text);
-      }
-
-      .toggle-icon {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        cursor: pointer;
-      }
-
-      .hide {
-        display: none;
-      }
-
-      .input-field {
-        width: 100%;
-        border: 2px solid #ccc;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-      }
-
-      input {
-        background-color: #f9f3ec;
-        color: var(--text);
-      }
-    </style>
-    <script defer src="script.js"></script>
-  </head>
-  <body
-    class="flex flex-col justify-center items-center min-h-screen text-center px-4"
-  >
-    <div class="container">
-      <img
-        src="https://drive.google.com/thumbnail?id=1g-1ed7agyP7WLWgN7Br-Auw-NPlxeQmI&sz=w1000"
-        alt="Overlay Image"
-        class="overlay-image"
-      />
-      <div class="content">
-        <div id="verifyEmail" class="hide">
-          <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4" >
-            Email verified!
-          </h1>
-        </div>
-
-        <div id="resetPassword" class="hide">
-          <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">
-            Reset Your Password
-          </h1>
-          <form
-            id="reset-form"
-            class="flex flex-col gap-3 items-center"
-            onsubmit="return false;"
-          >
-            <div class="input-wrapper">
-
-              <input
-                id="passwordInput"
-                type="password"
-                class="form"
-                placeholder="Enter password"
-              />
-
-              <svg
-                id="showIcon"
-                onclick="togglePasswordVisibility()"
-                class="toggle-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12"
-                  stroke="#000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12"
-                  stroke="#000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="3"
-                  stroke="#000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-
-              <!-- Hide Icon (initially hidden) -->
-              <svg
-                id="hideIcon"
-                onclick="togglePasswordVisibility()"
-                class="toggle-icon hide"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M17.94 17.94L6.06 6.06M10.7 5.39C11.12 5.3 11.56 5.25 12 5.25C17 5.25 20.5 12 20.5 12C19.73 13.41 18.71 14.63 17.52 15.59M14.11 16.45C13.44 16.76 12.74 16.94 12 16.94C7 16.94 3.5 12 3.5 12C4.66 10.13 6.11 8.65 7.76 7.68"
-                  stroke="#000"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            <div id="validationResults"></div>
-
-            <button
-              onclick="submitNewPassword()"
-              class="bg-[var(--primary)] text-white px-6 py-2 rounded-md text-sm hover:bg-[var(--accent)]"
-            >
-              Reset Password
-            </button>
-            <p id="reset-status" class="text-sm text-[var(--accent)] mt-2"></p>
-          </form>
-        </div>
-
-        <div id="invalid-block" class="hide">
-          <h1 class="text-2xl font-semibold text-red-700 mb-4">
-            Invalid or Expired Link
-          </h1>
-          <p class="text-sm text-gray-500">
-            Please request a new link
-          </p>
-        </div>
-
-        <div class="mt-6 text-sm text-gray-500">On Budget © 2025</div>
+<body class="flex flex-col justify-center items-center min-h-screen text-center px-4">
+  <div class="container">
+    <img src="https://drive.google.com/thumbnail?id=1g-1ed7agyP7WLWgN7Br-Auw-NPlxeQmI&sz=w1000" alt="Overlay Image"
+      class="overlay-image" />
+    <div class="content">
+      <div id="verifyEmail" class="hide">
+        <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">
+          Verifying your email... </h1>
       </div>
+
+      <div id="resetPassword" class="hide">
+        <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">
+          Enter your new password
+        </h1>
+        <form id="reset-form" class="flex flex-col gap-3 items-center" onsubmit="return false;">
+          <div class="input-wrapper">
+            <input id="passwordInput" type="password" class="form" placeholder="Enter password" />
+            <img id="showIcon1" onclick="togglePasswordVisibility('passwordInput', 'showIcon1', 'hideIcon1')"
+              src="assets/icons/show_icon.svg" class="toggle-icon" alt="Show password" />
+            <img id="hideIcon1" onclick="togglePasswordVisibility('passwordInput', 'showIcon1', 'hideIcon1')"
+              src="assets/icons/hide_icon.svg" class="toggle-icon hide" alt="Hide password" />
+          </div>
+          <div id="validatePasswordResults"></div>
+          <div class="input-wrapper">
+            <input id="confirmPasswordInput" type="password" class="form" placeholder="Enter confirm password" />
+            <img id="showIcon2" onclick="togglePasswordVisibility('confirmPasswordInput', 'showIcon2', 'hideIcon2')"
+              src="assets/icons/show_icon.svg" class="toggle-icon" alt="Show password" />
+            <img id="hideIcon2" onclick="togglePasswordVisibility('confirmPasswordInput', 'showIcon2', 'hideIcon2')"
+              src="assets/icons/hide_icon.svg" class="toggle-icon hide" alt="Hide password" />
+          </div>
+          <div id="validateConfirmResults"></div>
+          <button onclick="submitNewPassword()"
+            class="bg-[var(--primary)] text-white px-6 py-2 rounded-md text-sm hover:bg-[var(--accent)]">
+            Reset Password
+          </button>
+          <p id="reset-status" class="text-sm text-[var(--accent)] mt-2"></p>
+        </form>
+      </div>
+
+      <div id="invalid-block" class="hide">
+        <h1 class="text-2xl font-semibold text-red-700 mb-4">
+          Invalid or Expired Link
+        </h1>
+        <p class="text-sm text-gray-500">
+          Please request a new link
+        </p>
+      </div>
+
+      <div class="mt-6 text-sm text-gray-500">On Budget © 2025</div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
