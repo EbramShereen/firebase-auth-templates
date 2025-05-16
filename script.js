@@ -33,7 +33,6 @@ function verifyEmail(oobCode) {
   .then(response => {
     if (!response.ok) {
       return response.json().then(err => { 
-        console.log('Error response:', err);  
         throw err; 
       });
     }
