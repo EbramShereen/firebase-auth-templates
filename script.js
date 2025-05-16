@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function verifyEmail(oobCode) {
-  const apiKey = "AIzaSyDhh2HBfL0-CLtSUoiVVeOhShFkeLPsgOQ"; // Consider moving this to a config
+  const apiKey = "AIzaSyDhh2HBfL0-CLtSUoiVVeOhShFkeLPsgOQ";
   fetch(`https://identitytoolkit.googleapis.com/v1/accounts:update?key=${apiKey}`, {
     method: 'POST',
     headers: {
@@ -33,20 +33,19 @@ function verifyEmail(oobCode) {
   .then(response => {
     if (!response.ok) {
       return response.json().then(err => { 
-        console.log(err);  
+        console.log('Error response:', err);  
         throw err; 
-      
       });
     }
-    console.log(response.json());
-    return response.json();
-  })
-  .then(data => {
-    const verifyEmailDiv = document.getElementById('verifyEmail');
-    verifyEmailDiv.innerHTML = `
-      <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">Email Verified Successfully!</h1>
-      <p class="text-sm text-gray-500">You can now close this window and return to the app.</p>
-    `;
+    return response.json().then(data => {
+      console.log('Success response:', data);
+      const verifyEmailDiv = document.getElementById('verifyEmail');
+      verifyEmailDiv.innerHTML = `
+        <h1 class="text-2xl font-semibold text-[var(--primary)] mb-4">Email Verified Successfully!</h1>
+        <p class="text-sm text-gray-500">You can now close this window and return to the app.</p>
+      `;
+      return data; // Return data for any subsequent .then() if needed
+    });
   })
   .catch(error => {
     console.error('Verification error:', error);
