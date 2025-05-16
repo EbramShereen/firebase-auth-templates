@@ -21,7 +21,7 @@ class AuthComponent {
     
     // Get URL parameters
     const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode') || 'resetPassword';
+    const mode = urlParams.get('mode');
     const oobCode = urlParams.get('oobCode');
     
     // Store oobCode globally for password reset
