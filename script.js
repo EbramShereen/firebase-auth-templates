@@ -32,8 +32,13 @@ function verifyEmail(oobCode) {
   })
   .then(response => {
     if (!response.ok) {
-      return response.json().then(err => { throw err; });
+      return response.json().then(err => { 
+        console.log(err);  
+        throw err; 
+      
+      });
     }
+    console.log(response.json());
     return response.json();
   })
   .then(data => {
